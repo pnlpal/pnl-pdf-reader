@@ -18,7 +18,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": {
-              "base": "dist/pdf-reader",
+              "base": "dist/pdf-reader-ii",
               "browser": ""
             },
             "index": "src/index.html",
