@@ -1,0 +1,29 @@
+<div class="upload-container" *ngIf="!pdfSrc">
+  <!-- Drag-and-Drop Area -->
+  <div
+    class="drag-drop-area"
+    [class.dragging]="isDragging"
+    (drop)="onFileDrop($event)"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (click)="fileInput.click()"
+  >
+    <p *ngIf="!isDragging">Drag & drop your PDF file here or click to upload</p>
+    <p *ngIf="isDragging">Release to upload your PDF</p>
+    <input
+      #fileInput
+      type="file"
+      accept="application/pdf"
+      (change)="onFileSelect($event)"
+      class="hidden-input"
+    />
+  </div>
+</div>
+
+<ngx-extended-pdf-viewer
+  [textLayer]="true"
+  [handTool]="false"
+  [src]="pdfSrc || ''"
+  *ngIf="pdfSrc"
+>
+</ngx-extended-pdf-viewer>
