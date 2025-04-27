@@ -17,7 +17,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/pdf-reader",
+            "outputPath": {
+              "base": "dist/pdf-reader",
+              "browser": ""
+            },
             "index": "src/index.html",
             "baseHref": "/pdf-reader-ii/",
             "deployUrl": "pdf-reader-ii/",
@@ -96,5 +99,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
