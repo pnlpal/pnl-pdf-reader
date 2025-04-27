@@ -8,8 +8,14 @@
     (dragleave)="onDragLeave($event)"
     (click)="fileInput.click()"
   >
-    <p *ngIf="!isDragging">Drag & drop your PDF file here or click to upload</p>
+    <p *ngIf="!isDragging && !isReading">
+      Drag & drop your PDF file here or click to upload
+    </p>
     <p *ngIf="isDragging">Release to upload your PDF</p>
+    <p *ngIf="isReading">Reading file... {{ progress }}%</p>
+    <div class="progress-bar" *ngIf="isReading">
+      <div class="progress" [style.width.%]="progress"></div>
+    </div>
     <input
       #fileInput
       type="file"

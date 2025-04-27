@@ -20,6 +20,8 @@ import { CommonModule } from '@angular/common';
 export class PdfViewerComponent {
   pdfSrc: string | ArrayBuffer | null = null;
   isDragging = false;
+  isReading = false;
+  progress = 0;
   constructor(private pdfService: NgxExtendedPdfViewerService) {
     /* More likely than not you don't need to tweak the pdfDefaultOptions.
        They are a collecton of less frequently used options.
@@ -60,19 +62,25 @@ export class PdfViewerComponent {
   private readFile(file: File): void {
     if (file.type === 'application/pdf') {
       const reader = new FileReader();
+      this.isReading = true;
+      this.progress = 0;
       reader.onload = () => {
         console.log('File read successfully:', reader.result);
+        this.isReading = false;
+        this.progress = 100;
         this.pdfSrc = reader.result;
       };
       reader.onerror = (error) => {
         console.error('Error reading file:', error);
+        this.isReading = false;
+        this.progress = 0;
         alert('Error reading file. Please try again.');
       };
       // reading progress
       reader.onprogress = (event) => {
         if (event.lengthComputable) {
-          const percentComplete = (event.loaded / event.total) * 100;
-          console.log(`File reading progress: ${percentComplete}%`);
+          this.progress = Math.round((event.loaded / event.total) * 100);
+          console.log(`File reading progress: ${this.progress}%`);
         }
       };
       reader.readAsArrayBuffer(file);
