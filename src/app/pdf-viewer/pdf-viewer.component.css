@@ -64,3 +64,16 @@
   background-color: #007bff;
   transition: width 0.3s ease;
 }
+
+.privacy-notice {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+  max-width: 600px;
+  line-height: 1.6;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
