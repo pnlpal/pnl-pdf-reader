@@ -31,6 +31,13 @@ export class PdfViewerComponent {
     // but most devices support much higher resolutions.
     // Increasing this setting allows your users to use higher zoom factors,
     // trading image quality for performance.
+
+    window.addEventListener('message', (event) => {
+      // console.log('Received message: ', event);
+      if (event.data.type === 'PDF_CONTENT') {
+        this.pdfSrc = event.data.arrayBuffer;
+      }
+    });
   }
   onFileSelect(event: Event): void {
     const input = event.target as HTMLInputElement;
