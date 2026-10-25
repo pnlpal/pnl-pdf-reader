@@ -1,46 +1,56 @@
-<div class="upload-container" *ngIf="!pdfSrc">
-  <!-- Drag-and-Drop Area -->
-  <div
-    class="drag-drop-area"
-    [class.dragging]="isDragging"
-    (drop)="onFileDrop($event)"
-    (dragover)="onDragOver($event)"
-    (dragleave)="onDragLeave($event)"
-    (click)="fileInput.click()"
-  >
-    <p *ngIf="!isDragging && !isReading">
-      Drag & drop your PDF file here or click to upload
-    </p>
-    <p *ngIf="isDragging">Release to upload your PDF</p>
-    <p *ngIf="isReading">Reading file... {{ progress }}%</p>
-    <div class="progress-bar" *ngIf="isReading">
-      <div class="progress" [style.width.%]="progress"></div>
+@if (!pdfSrc) {
+  <div class="upload-container">
+    <!-- Drag-and-Drop Area -->
+    <div
+      class="drag-drop-area"
+      [class.dragging]="isDragging"
+      (drop)="onFileDrop($event)"
+      (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave($event)"
+      (click)="fileInput.click()"
+      >
+      @if (!isDragging && !isReading) {
+        <p>
+          Drag & drop your PDF file here or click to upload
+        </p>
+      }
+      @if (isDragging) {
+        <p>Release to upload your PDF</p>
+      }
+      @if (isReading) {
+        <p>Reading file... {{ progress }}%</p>
+      }
+      @if (isReading) {
+        <div class="progress-bar">
+          <div class="progress" [style.width.%]="progress"></div>
+        </div>
+      }
+      <input
+        #fileInput
+        type="file"
+        accept="application/pdf"
+        (change)="onFileSelect($event)"
+        class="hidden-input"
+        />
     </div>
-    <input
-      #fileInput
-      type="file"
-      accept="application/pdf"
-      (change)="onFileSelect($event)"
-      class="hidden-input"
-    />
+    <!-- Privacy Notice -->
+    <p class="privacy-notice">
+      <strong>Privacy Notice:</strong> Your file will not be uploaded to any
+      server. All file processing is performed locally in your browser, ensuring
+      that your data remains private and secure. No file data is transmitted over
+      the internet, and your file will remain accessible only to you during this
+      session.
+    </p>
   </div>
+}
 
-  <!-- Privacy Notice -->
-  <p class="privacy-notice">
-    <strong>Privacy Notice:</strong> Your file will not be uploaded to any
-    server. All file processing is performed locally in your browser, ensuring
-    that your data remains private and secure. No file data is transmitted over
-    the internet, and your file will remain accessible only to you during this
-    session.
-  </p>
-</div>
-
-<ngx-extended-pdf-viewer
-  [textLayer]="true"
-  [handTool]="false"
-  [ignoreKeyboard]="false"
-  [showFindButton]="true"
-  [src]="pdfSrc || ''"
-  *ngIf="pdfSrc"
->
-</ngx-extended-pdf-viewer>
+@if (pdfSrc) {
+  <ngx-extended-pdf-viewer
+    [textLayer]="true"
+    [handTool]="false"
+    [ignoreKeyboard]="false"
+    [showFindButton]="true"
+    [src]="pdfSrc || ''"
+    >
+  </ngx-extended-pdf-viewer>
+}

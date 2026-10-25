@@ -4,14 +4,14 @@ import {
   NgxExtendedPdfViewerService,
   pdfDefaultOptions,
 } from 'ngx-extended-pdf-viewer';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-pdf-viewer',
   templateUrl: './pdf-viewer.component.html',
   styleUrls: ['./pdf-viewer.component.css'],
   standalone: true,
-  imports: [NgxExtendedPdfViewerModule, CommonModule],
+  imports: [NgxExtendedPdfViewerModule],
   providers: [NgxExtendedPdfViewerService],
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
