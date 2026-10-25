@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {
   NgxExtendedPdfViewerModule,
   NgxExtendedPdfViewerService,
@@ -12,6 +12,7 @@ import {
   styleUrls: ['./pdf-viewer.component.css'],
   standalone: true,
   imports: [NgxExtendedPdfViewerModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [NgxExtendedPdfViewerService],
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
