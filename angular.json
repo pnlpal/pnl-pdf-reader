@@ -18,11 +18,11 @@
           "builder": "@angular/build:application",
           "options": {
             "outputPath": {
-              "base": "dist/pdf-reader-ii",
+              "base": "dist/pdf-reader",
               "browser": ""
             },
             "index": "src/index.html",
-            "baseHref": "/pdf-reader-ii/",
+            "baseHref": "/pdf-reader/",
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
