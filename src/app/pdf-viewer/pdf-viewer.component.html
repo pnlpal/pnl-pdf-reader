@@ -33,14 +33,55 @@
         class="hidden-input"
         />
     </div>
-    <!-- Privacy Notice -->
-    <p class="privacy-notice">
-      <strong>Privacy Notice:</strong> Your file will not be uploaded to any
-      server. All file processing is performed locally in your browser, ensuring
-      that your data remains private and secure. No file data is transmitted over
-      the internet, and your file will remain accessible only to you during this
-      session.
-    </p>
+    <div class="cards">
+      <!-- Privacy Notice -->
+      <p class="card privacy-notice">
+        <strong>Privacy Notice:</strong> Your file will not be uploaded to any
+        server. All file processing is performed locally in your browser, ensuring
+        that your data remains private and secure. No file data is transmitted over
+        the internet, and your file will remain accessible only to you during this
+        session.
+      </p>
+
+      <div class="card promo-card">
+        <img src="images/dictionariez-128.png" alt="" />
+        <div class="promo-body">
+          <h3>Dictionariez: look up any word in your PDF</h3>
+          <p>
+            Select or click any word in the PDF to see its meaning, pronunciation
+            and examples from the dictionaries you choose, without leaving the page.
+          </p>
+          <div class="promo-actions">
+            <a [href]="dictionariezStore" target="_blank" rel="noopener">
+              Add to {{ browser }}
+            </a>
+            <a href="https://dictionariez.pnl.dev/" target="_blank" rel="noopener">
+              Learn more
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="card promo-card">
+        <img src="images/pnl-reader-128.png" alt="" />
+        <div class="promo-body">
+          <h3>PNL Reader: open PDFs from any website</h3>
+          <p>
+            Read PDFs from sites like arXiv and Springer in one click, with no
+            download needed. Pick a paper-feel theme and font, or have the text
+            read aloud to you.
+          </p>
+          <div class="promo-actions">
+            <a [href]="pnlReaderStore" target="_blank" rel="noopener">
+              Add to {{ browser }}
+            </a>
+            <a href="https://github.com/pnlpal/pnl-reader" target="_blank" rel="noopener">
+              Learn more
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 }
 

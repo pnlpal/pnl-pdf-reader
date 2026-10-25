@@ -5,6 +5,24 @@ import {
   pdfDefaultOptions,
 } from 'ngx-extended-pdf-viewer';
 
+const browser = /Firefox\//.test(navigator.userAgent)
+  ? 'Firefox'
+  : /Edg\//.test(navigator.userAgent)
+    ? 'Edge'
+    : 'Chrome';
+
+const stores: Record<string, Record<string, string>> = {
+  dictionariez: {
+    Chrome: 'https://chromewebstore.google.com/detail/dictionaries/diojcfpekhhnndfmggknljpnfpcccbhc',
+    Firefox: 'https://addons.mozilla.org/en-US/firefox/addon/dictionaries/',
+    Edge: 'https://microsoftedge.microsoft.com/addons/detail/dictionaries-one-to-rule/jdgglojanbnghagoeffacmjodigadoof',
+  },
+  pnlReader: {
+    Chrome: 'https://chromewebstore.google.com/detail/pnl-reader/amdebfiljmlhfkenbhhpckmmpkonpdfh',
+    Firefox: 'https://addons.mozilla.org/en-US/firefox/addon/pnl-reader/',
+    Edge: 'https://microsoftedge.microsoft.com/addons/detail/pnl-reader/gdpndpkknkgkmoikgpldekejoabkplmd',
+  },
+};
 
 @Component({
   selector: 'app-pdf-viewer',
@@ -23,6 +41,9 @@ export class PdfViewerComponent {
   isDragging = false;
   isReading = false;
   progress = 0;
+  browser = browser;
+  dictionariezStore = stores['dictionariez'][browser];
+  pnlReaderStore = stores['pnlReader'][browser];
   constructor(private pdfService: NgxExtendedPdfViewerService) {
     /* More likely than not you don't need to tweak the pdfDefaultOptions.
        They are a collecton of less frequently used options.
