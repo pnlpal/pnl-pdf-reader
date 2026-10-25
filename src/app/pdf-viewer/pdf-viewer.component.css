@@ -134,3 +134,8 @@
 .promo-actions a:hover {
   text-decoration: underline;
 }
+
+.loading {
+  text-align: center;
+  color: #666;
+}

@@ -1,9 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import {
-  NgxExtendedPdfViewerModule,
-  NgxExtendedPdfViewerService,
-  pdfDefaultOptions,
-} from 'ngx-extended-pdf-viewer';
+import { PdfDocumentComponent } from './pdf-document.component';
 
 const browser = /Firefox\//.test(navigator.userAgent)
   ? 'Firefox'
@@ -29,9 +25,8 @@ const stores: Record<string, Record<string, string>> = {
   templateUrl: './pdf-viewer.component.html',
   styleUrls: ['./pdf-viewer.component.css'],
   standalone: true,
-  imports: [NgxExtendedPdfViewerModule],
+  imports: [PdfDocumentComponent],
   changeDetection: ChangeDetectionStrategy.Eager,
-  providers: [NgxExtendedPdfViewerService],
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
@@ -44,16 +39,7 @@ export class PdfViewerComponent {
   browser = browser;
   dictionariezStore = stores['dictionariez'][browser];
   pnlReaderStore = stores['pnlReader'][browser];
-  constructor(private pdfService: NgxExtendedPdfViewerService) {
-    /* More likely than not you don't need to tweak the pdfDefaultOptions.
-       They are a collecton of less frequently used options.
-       To illustrate how they're used, here are two example settings: */
-    // pdfDefaultOptions.doubleTapZoomFactor = '150%'; // The default value is '200%'
-    // pdfDefaultOptions.maxCanvasPixels = 4096 * 4096 * 5; // The default value is 4096 * 4096 pixels,
-    // but most devices support much higher resolutions.
-    // Increasing this setting allows your users to use higher zoom factors,
-    // trading image quality for performance.
-
+  constructor() {
     window.addEventListener('message', (event) => {
       // console.log('Received message: ', event);
       if (event.data.type === 'PDF_CONTENT') {

@@ -86,12 +86,10 @@
 }
 
 @if (pdfSrc) {
-  <ngx-extended-pdf-viewer
-    [textLayer]="true"
-    [handTool]="false"
-    [ignoreKeyboard]="false"
-    [showFindButton]="true"
-    [src]="pdfSrc || ''"
-    >
-  </ngx-extended-pdf-viewer>
+  <!-- Deferred so ngx-extended-pdf-viewer stays out of the initial bundle. -->
+  @defer {
+    <app-pdf-document [src]="pdfSrc"></app-pdf-document>
+  } @loading {
+    <p class="loading">Loading viewer...</p>
+  }
 }
