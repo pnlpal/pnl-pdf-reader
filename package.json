@@ -3,9 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "prestart": "node scripts/copy-navbar.mjs",
     "start": "ng serve",
+    "prebuild": "node scripts/copy-navbar.mjs",
     "build": "ng build",
+    "prewatch": "node scripts/copy-navbar.mjs",
     "watch": "ng build --watch --configuration development",
+    "pretest": "node scripts/copy-navbar.mjs",
     "test": "ng test"
   },
   "private": true,

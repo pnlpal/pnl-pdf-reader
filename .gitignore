@@ -40,3 +40,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Shared navbar, copied from captionz at build time (scripts/copy-navbar.mjs)
+/src/app/navbar

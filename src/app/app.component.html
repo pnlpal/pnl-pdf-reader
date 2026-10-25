@@ -176,6 +176,11 @@
   }
 </style>
 
+<!-- PNL Navbar Web Component (copied from captionz, see scripts/copy-navbar.mjs) -->
+@if (!embeddedMode) {
+  <pnl-navbar id="pnl-navbar"></pnl-navbar>
+}
+
 <main class="main">
   <app-pdf-viewer></app-pdf-viewer>
 </main>

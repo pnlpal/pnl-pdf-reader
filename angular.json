@@ -39,7 +39,7 @@
               }
             ],
             "styles": ["src/styles.scss"],
-            "scripts": []
+            "scripts": ["src/app/navbar/navbar-component.js"]
           },
           "configurations": {
             "production": {
