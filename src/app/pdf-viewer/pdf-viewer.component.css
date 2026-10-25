@@ -1,3 +1,32 @@
+/* Column layout so the viewer fills the space below its top bar. */
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.viewer {
+  flex: 1;
+  min-height: 0;
+}
+
+.viewer-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 12px;
+  font-size: 14px;
+  border-bottom: 1px solid #ddd;
+  background-color: #f9f9f9;
+}
+
+.viewer-file-name {
+  color: #555;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .upload-container {
   display: flex;
   flex-direction: column;
@@ -138,4 +167,150 @@
 .loading {
   text-align: center;
   color: #666;
+}
+
+.link-button {
+  padding: 0;
+  font: inherit;
+  color: #007bff;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.link-button:hover {
+  text-decoration: underline;
+}
+
+.recent-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.recent-header h2 {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.privacy-hint {
+  position: relative;
+}
+
+.privacy-hint-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  font: inherit;
+  font-size: 13px;
+  color: #777;
+  background: none;
+  border: none;
+  cursor: help;
+}
+
+.info-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  font-size: 10px;
+  font-style: italic;
+  font-weight: bold;
+  border: 1px solid #999;
+  border-radius: 50%;
+}
+
+.tooltip {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 10;
+  width: 260px;
+  padding: 8px 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #fff;
+  background-color: #333;
+  border-radius: 5px;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.privacy-hint:hover .tooltip,
+.privacy-hint-button:focus-visible + .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.recent-list {
+  padding: 4px 0;
+  list-style: none;
+  background-color: #fff;
+}
+
+.recent-list li {
+  display: flex;
+  align-items: center;
+}
+
+.recent-list li + li {
+  border-top: 1px solid #eee;
+}
+
+.recent-open {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  font: inherit;
+  text-align: left;
+  color: #333;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.recent-open:hover {
+  background-color: #f0f8ff;
+}
+
+.file-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-meta {
+  flex-shrink: 0;
+  font-size: 12px;
+  color: #888;
+}
+
+.recent-remove {
+  padding: 10px 12px;
+  color: #aaa;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.recent-remove:hover {
+  color: #d33;
+}
+
+.recent-footer {
+  margin-top: 6px;
+  font-size: 13px;
+  text-align: right;
 }

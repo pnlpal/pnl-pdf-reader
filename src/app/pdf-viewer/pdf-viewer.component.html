@@ -34,61 +34,120 @@
         />
     </div>
     <div class="cards">
+      @if (recentFiles.length) {
+        <section class="recent-files" aria-labelledby="recent-files-title">
+          <div class="recent-header">
+            <h2 id="recent-files-title">Recent files</h2>
+            <span class="privacy-hint">
+              <button type="button" class="privacy-hint-button" aria-describedby="privacy-tooltip">
+                🔒 Stored only in this browser <span class="info-icon" aria-hidden="true">i</span>
+              </button>
+              <span id="privacy-tooltip" role="tooltip" class="tooltip">
+                Your PDFs never leave this device. They're saved in this browser's
+                own storage so a refresh doesn't lose them. Only the
+                {{ maxRecentFiles }} most recent are kept. Clear them any time.
+              </span>
+            </span>
+          </div>
+          <ul class="card recent-list">
+            @for (file of recentFiles; track file.id) {
+              <li>
+                <button type="button" class="recent-open" (click)="openRecent(file.id)" [title]="file.name">
+                  <span class="file-icon" aria-hidden="true">📄</span>
+                  <span class="file-name">{{ file.name }}</span>
+                  <span class="file-meta">
+                    @if (file.pagesCount) {
+                      p.{{ file.page }}/{{ file.pagesCount }} ·
+                    }
+                    {{ formatSize(file.size) }} · {{ timeAgo(file.lastOpened) }}
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  class="recent-remove"
+                  (click)="removeRecent(file.id, $event)"
+                  [attr.aria-label]="'Remove ' + file.name"
+                  title="Remove from this browser"
+                  >
+                  ✕
+                </button>
+              </li>
+            }
+          </ul>
+          <div class="recent-footer">
+            <button type="button" class="link-button" (click)="clearRecent()">Clear all</button>
+          </div>
+        </section>
+      }
+
       <!-- Privacy Notice -->
       <p class="card privacy-notice">
         <strong>Privacy Notice:</strong> Your file will not be uploaded to any
         server. All file processing is performed locally in your browser, ensuring
         that your data remains private and secure. No file data is transmitted over
-        the internet, and your file will remain accessible only to you during this
-        session.
+        the internet. Your {{ maxRecentFiles }} most recent files are kept in this
+        browser only, so you can pick up where you left off. You can clear them at
+        any time.
       </p>
 
-      <div class="card promo-card">
-        <img src="images/dictionariez-128.png" alt="" />
-        <div class="promo-body">
-          <h3>Dictionariez: look up any word in your PDF</h3>
-          <p>
-            Select or click any word in the PDF to see its meaning, pronunciation
-            and examples from the dictionaries you choose, without leaving the page.
-          </p>
-          <div class="promo-actions">
-            <a [href]="dictionariezStore" target="_blank" rel="noopener">
-              Add to {{ browser }}
-            </a>
-            <a href="https://dictionariez.pnl.dev/" target="_blank" rel="noopener">
-              Learn more
-            </a>
+      @if (!recentFiles.length) {
+        <div class="card promo-card">
+          <img src="images/dictionariez-128.png" alt="" />
+          <div class="promo-body">
+            <h3>Dictionariez: look up any word in your PDF</h3>
+            <p>
+              Select or click any word in the PDF to see its meaning, pronunciation
+              and examples from the dictionaries you choose, without leaving the page.
+            </p>
+            <div class="promo-actions">
+              <a [href]="dictionariezStore" target="_blank" rel="noopener">
+                Add to {{ browser }}
+              </a>
+              <a href="https://dictionariez.pnl.dev/" target="_blank" rel="noopener">
+                Learn more
+              </a>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="card promo-card">
-        <img src="images/pnl-reader-128.png" alt="" />
-        <div class="promo-body">
-          <h3>PNL Reader: open PDFs from any website</h3>
-          <p>
-            Read PDFs from sites like arXiv and Springer in one click, with no
-            download needed. Pick a paper-feel theme and font, or have the text
-            read aloud to you.
-          </p>
-          <div class="promo-actions">
-            <a [href]="pnlReaderStore" target="_blank" rel="noopener">
-              Add to {{ browser }}
-            </a>
-            <a href="https://github.com/pnlpal/pnl-reader" target="_blank" rel="noopener">
-              Learn more
-            </a>
+        <div class="card promo-card">
+          <img src="images/pnl-reader-128.png" alt="" />
+          <div class="promo-body">
+            <h3>PNL Reader: open PDFs from any website</h3>
+            <p>
+              Read PDFs from sites like arXiv and Springer in one click, with no
+              download needed. Pick a paper-feel theme and font, or have the text
+              read aloud to you.
+            </p>
+            <div class="promo-actions">
+              <a [href]="pnlReaderStore" target="_blank" rel="noopener">
+                Add to {{ browser }}
+              </a>
+              <a href="https://github.com/pnlpal/pnl-reader" target="_blank" rel="noopener">
+                Learn more
+              </a>
+            </div>
           </div>
         </div>
-      </div>
+      }
     </div>
   </div>
 }
 
 @if (pdfSrc) {
+  <div class="viewer-bar">
+    <button type="button" class="link-button" (click)="close()">← Close</button>
+    <span class="viewer-file-name" [title]="fileName">{{ fileName }}</span>
+  </div>
   <!-- Deferred so ngx-extended-pdf-viewer stays out of the initial bundle. -->
   @defer {
-    <app-pdf-document [src]="pdfSrc"></app-pdf-document>
+    <app-pdf-document
+      class="viewer"
+      [src]="pdfSrc"
+      [page]="startPage"
+      (pageChange)="onPageChange($event)"
+      (pagesLoaded)="onPagesLoaded($event)"
+    ></app-pdf-document>
   } @loading {
     <p class="loading">Loading viewer...</p>
   }

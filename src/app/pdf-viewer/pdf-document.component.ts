@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output } from '@angular/core';
 import {
   NgxExtendedPdfViewerModule,
   NgxExtendedPdfViewerService,
@@ -15,6 +15,9 @@ import {
       [ignoreKeyboard]="false"
       [showFindButton]="true"
       [src]="src()"
+      [page]="page()"
+      (pageChange)="pageChange.emit($event ?? 1)"
+      (pagesLoaded)="pagesLoaded.emit($event.pagesCount)"
       >
     </ngx-extended-pdf-viewer>
   `,
@@ -31,6 +34,9 @@ import {
 })
 export class PdfDocumentComponent {
   src = input.required<string | ArrayBuffer>();
+  page = input(1);
+  pageChange = output<number>();
+  pagesLoaded = output<number>();
 
   constructor() {
     /* More likely than not you don't need to tweak the pdfDefaultOptions.
