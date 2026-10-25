@@ -178,7 +178,7 @@
 
 <!-- PNL Navbar Web Component (copied from captionz, see scripts/copy-navbar.mjs) -->
 @if (!embeddedMode) {
-  <pnl-navbar id="pnl-navbar"></pnl-navbar>
+  <pnl-navbar id="pnl-navbar" [attr.user]="user ? (user | json) : null"></pnl-navbar>
 }
 
 <main class="main">
