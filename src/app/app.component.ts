@@ -3,6 +3,7 @@ import { JsonPipe } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 import { NavbarUser, UserService } from './user.service';
+import { LayoutService } from './layout.service';
 
 @Component({
   selector: 'app-root',
@@ -14,21 +15,13 @@ import { NavbarUser, UserService } from './user.service';
 })
 export class AppComponent implements OnInit {
   private userService = inject(UserService);
+  layout = inject(LayoutService);
 
   title = 'pnl-pdf-reader';
   user: NavbarUser | null = null;
 
-  // Still loaded inside the main site's iframe: that page already shows the navbar.
-  embeddedMode = (() => {
-    try {
-      return window.top !== window.self;
-    } catch {
-      return true;
-    }
-  })();
-
   async ngOnInit() {
-    if (!this.embeddedMode) {
+    if (!this.layout.embeddedMode) {
       this.user = await this.userService.getCurrentUser();
     }
   }

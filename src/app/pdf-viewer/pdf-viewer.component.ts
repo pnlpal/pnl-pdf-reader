@@ -1,5 +1,6 @@
-import { Component, ChangeDetectionStrategy, OnInit, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ElementRef, OnInit, inject, viewChild } from '@angular/core';
 import { PdfDocumentComponent } from './pdf-document.component';
+import { LayoutService } from '../layout.service';
 import { MAX_RECENT_FILES, RecentFile, RecentFilesService } from './recent-files.service';
 
 const browser = /Firefox\//.test(navigator.userAgent)
@@ -28,6 +29,10 @@ const stores: Record<string, Record<string, string>> = {
   standalone: true,
   imports: [PdfDocumentComponent],
   changeDetection: ChangeDetectionStrategy.Eager,
+  host: {
+    '(document:keydown)': 'onKeydown($event)',
+    '(document:fullscreenchange)': 'onFullscreenChange()',
+  },
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
@@ -35,6 +40,12 @@ const stores: Record<string, Record<string, string>> = {
 export class PdfViewerComponent implements OnInit {
   private recentFilesService = inject(RecentFilesService);
   private savePositionTimer?: ReturnType<typeof setTimeout>;
+  // Typed structurally: importing PdfDocumentComponent as a value here would undo its @defer.
+  private pdfDocument = viewChild<{ print(): void }>('pdfDocument');
+  private host = inject(ElementRef<HTMLElement>);
+  layout = inject(LayoutService);
+  isFullscreen = false;
+  canFullscreen = document.fullscreenEnabled;
 
   pdfSrc: string | ArrayBuffer | null = null;
   fileName = '';
@@ -93,6 +104,8 @@ export class PdfViewerComponent implements OnInit {
       await this.recentFilesService.updatePosition(this.currentFileId, this.startPage, this.pagesCount);
     }
     this.recentFilesService.currentId = null;
+    if (this.isFullscreen) document.exitFullscreen().catch(() => undefined);
+    this.layout.pdfOpen.set(false);
     this.pdfSrc = null;
     this.currentFileId = null;
     await this.loadRecentFiles();
@@ -107,6 +120,33 @@ export class PdfViewerComponent implements OnInit {
       () => this.recentFilesService.updatePosition(id, page, this.pagesCount),
       500,
     );
+  }
+
+  toggleFullscreen() {
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch(() => undefined);
+    } else {
+      // Only the PDF itself, not the bar above it. Esc or F exits.
+      this.host.nativeElement.querySelector('app-pdf-document')?.requestFullscreen().catch(() => undefined);
+    }
+  }
+
+  onFullscreenChange() {
+    this.isFullscreen = !!document.fullscreenElement;
+  }
+
+  print() {
+    this.pdfDocument()?.print();
+  }
+
+  // "F" toggles fullscreen while reading, unless the user is typing somewhere.
+  onKeydown(event: KeyboardEvent) {
+    if (!this.pdfSrc || !this.canFullscreen) return;
+    if (event.key.toLowerCase() !== 'f' || event.ctrlKey || event.metaKey || event.altKey) return;
+    const target = event.target as HTMLElement | null;
+    if (target?.closest('input, textarea, select, [contenteditable]')) return;
+    event.preventDefault();
+    this.toggleFullscreen();
   }
 
   onPagesLoaded(pagesCount: number) {
@@ -142,6 +182,7 @@ export class PdfViewerComponent implements OnInit {
     this.startPage = page;
     this.pagesCount = pagesCount;
     this.pdfSrc = data;
+    this.layout.pdfOpen.set(true);
   }
 
   private async loadRecentFiles() {

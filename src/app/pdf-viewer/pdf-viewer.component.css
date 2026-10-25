@@ -10,17 +10,30 @@
   min-height: 0;
 }
 
+.viewer:fullscreen {
+  background-color: #fff;
+}
+
 .viewer-bar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
-  padding: 6px 12px;
+  padding: 2px 4px 2px 12px;
   font-size: 14px;
   border-bottom: 1px solid #ddd;
   background-color: #f9f9f9;
 }
 
+.viewer-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
 .viewer-file-name {
+  min-width: 0;
   color: #555;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -167,6 +180,42 @@
 .loading {
   text-align: center;
   color: #666;
+}
+
+.viewer-actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 2px;
+}
+
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  color: #555;
+  background: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.icon-button:hover {
+  color: #007bff;
+  background-color: #e8f0fe;
+}
+
+.icon-button:focus-visible {
+  outline: 2px solid #007bff;
+  outline-offset: -2px;
+}
+
+.icon-button svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
 }
 
 .link-button {

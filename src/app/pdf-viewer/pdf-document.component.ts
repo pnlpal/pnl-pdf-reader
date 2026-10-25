@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input, output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, input, output } from '@angular/core';
 import {
   NgxExtendedPdfViewerModule,
   NgxExtendedPdfViewerService,
@@ -37,6 +37,7 @@ export class PdfDocumentComponent {
   page = input(1);
   pageChange = output<number>();
   pagesLoaded = output<number>();
+  private pdfService = inject(NgxExtendedPdfViewerService);
 
   constructor() {
     /* More likely than not you don't need to tweak the pdfDefaultOptions.
@@ -47,5 +48,9 @@ export class PdfDocumentComponent {
     // but most devices support much higher resolutions.
     // Increasing this setting allows your users to use higher zoom factors,
     // trading image quality for performance.
+  }
+
+  print() {
+    this.pdfService.print();
   }
 }
