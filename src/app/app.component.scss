@@ -1,5 +1,13 @@
+// Full-height column: navbar, then main fills the rest of the viewport.
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+}
+
+// No display here: it would override PdfViewerComponent's own flex :host.
 app-pdf-viewer {
-  display: block;
   height: 100%;
   width: 100%;
 }

@@ -15,6 +15,7 @@ import {
       [ignoreKeyboard]="false"
       [showFindButton]="true"
       [src]="src()"
+      height="calc(100%)"
       [page]="page()"
       (pageChange)="pageChange.emit($event ?? 1)"
       (pagesLoaded)="pagesLoaded.emit($event.pagesCount)"
@@ -26,6 +27,13 @@ import {
       display: block;
       height: 100%;
       width: 100%;
+    }
+
+    /* Fill the host instead of the viewer's own pixel height, which it
+       measures once and wouldn't update when entering fullscreen. */
+    ngx-extended-pdf-viewer {
+      display: block;
+      height: 100%;
     }
   `,
   imports: [NgxExtendedPdfViewerModule],
