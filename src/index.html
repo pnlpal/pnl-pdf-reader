@@ -2,12 +2,114 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>PnlPdfReader</title>
+  <title>PNL PDF Reader – Free, Private PDF Reader in Your Browser</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Open and read PDF files right in your browser. Free, no sign-up, and private: your files are never uploaded. Remembers your last 5 PDFs and the page you were on, with search, fullscreen and dictionary lookup.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#24292e">
+  <link rel="canonical" href="https://pnl.dev/pdf-reader/">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Link previews (Open Graph / Twitter) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="PNL">
+  <meta property="og:url" content="https://pnl.dev/pdf-reader/">
+  <meta property="og:title" content="PNL PDF Reader – Free, Private PDF Reader in Your Browser">
+  <meta property="og:description" content="Read PDFs in your browser without uploading them anywhere. Remembers your recent files and where you left off. Free, no sign-up.">
+  <meta property="og:image" content="https://pnl.dev/pdf-reader/images/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="PNL PDF Reader: read PDFs privately in your browser">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PNL PDF Reader – Free, Private PDF Reader in Your Browser">
+  <meta name="twitter:description" content="Read PDFs in your browser without uploading them anywhere. Remembers your recent files and where you left off.">
+  <meta name="twitter:image" content="https://pnl.dev/pdf-reader/images/og-image.png">
+
+  <!-- Structured data for search engines and AI assistants -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "PNL PDF Reader",
+    "url": "https://pnl.dev/pdf-reader/",
+    "description": "A free PDF reader that runs entirely in the web browser. PDF files are never uploaded to a server; they are processed and stored locally on the user's device.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any (web browser)",
+    "browserRequirements": "Requires JavaScript and a modern browser (Chrome, Firefox, Edge or Safari).",
+    "isAccessibleForFree": true,
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "featureList": [
+      "Open PDF files by drag and drop or file picker",
+      "Files are processed locally and never uploaded",
+      "Remembers the 5 most recently opened PDFs in the browser (IndexedDB)",
+      "Reopens the last PDF at the same page after a refresh",
+      "Text search, zoom and rotation",
+      "Fullscreen reading mode with the F keyboard shortcut",
+      "Look up words with the Dictionariez browser extension"
+    ],
+    "screenshot": "https://pnl.dev/pdf-reader/images/og-image.png",
+    "publisher": { "@type": "Organization", "name": "PNL", "url": "https://pnl.dev" }
+  }
+  </script>
+
+  <style>
+    /* Shown only until Angular starts (and to crawlers that don't run JavaScript). */
+    .static-intro {
+      max-width: 640px;
+      margin: 48px auto;
+      padding: 0 16px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #555;
+    }
+    .static-intro h1 { font-size: 24px; color: #333; }
+    .static-intro h2 { font-size: 17px; color: #333; margin-top: 24px; }
+  </style>
 </head>
 <body>
-  <app-root></app-root>
+  <app-root>
+    <main class="static-intro">
+      <h1>PNL PDF Reader: a free, private PDF reader in your browser</h1>
+      <p>
+        Open any PDF file and read it right in your web browser. There's nothing to
+        install and no account to create. Your file is never uploaded: everything
+        happens on your own device.
+      </p>
+      <noscript><p><strong>Please enable JavaScript to use the PDF Reader.</strong></p></noscript>
+
+      <h2>Features</h2>
+      <ul>
+        <li>Open a PDF by dragging it onto the page or choosing it from your computer.</li>
+        <li>Remembers your 5 most recent PDFs and the page you reached, so a refresh doesn't lose your place.</li>
+        <li>Search the text, zoom and rotate pages.</li>
+        <li>Fullscreen reading: press <kbd>F</kbd> to enter or leave fullscreen.</li>
+        <li>Click any word to look it up with the Dictionariez browser extension.</li>
+      </ul>
+
+      <h2>Are my PDF files uploaded anywhere?</h2>
+      <p>
+        No. The PDF is read and displayed entirely in your browser. No file data is
+        sent over the internet.
+      </p>
+
+      <h2>How does it remember my recent files?</h2>
+      <p>
+        Your 5 most recent PDFs are saved in your browser's own storage (IndexedDB) on
+        your device. They stay in that browser only, and you can remove one file or
+        clear them all at any time.
+      </p>
+
+      <h2>Is it free?</h2>
+      <p>Yes. The PDF Reader is free to use and doesn't require an account.</p>
+
+      <h2>Can I open PDFs from websites like arXiv or Springer?</h2>
+      <p>
+        Yes, with the PNL Reader browser extension, which opens online PDFs in one
+        click without downloading them first.
+      </p>
+    </main>
+  </app-root>
 </body>
 </html>
